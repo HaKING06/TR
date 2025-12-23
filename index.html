@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türk Dili Çalışma Portalı</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .perspective-1000 { perspective: 1000px; }
+        .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .card-inner { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white border-b sticky top-0 z-30 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight">Türk Dili Portal</h1>
+            </div>
+            
+            <nav class="flex bg-slate-100 p-1 rounded-xl w-full md:w-auto overflow-x-auto no-scrollbar">
+                <button onclick="switchTab('flashcards')" id="tab-flashcards" class="tab-btn flex-1 flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all bg-white text-blue-600 shadow-sm">
+                    96 Kart
+                </button>
+                <button onclick="switchTab('video')" id="tab-video" class="tab-btn flex-1 flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all text-slate-500 hover:text-slate-800">
+                    Video
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn flex-1 flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-medium transition-all text-slate-500 hover:text-slate-800">
+                    30 Test
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-4xl mx-auto px-4 mt-8 pb-12">
+        <!-- İçerik JavaScript ile buraya basılacak -->
+    </main>
+
+    <script>
+        // --- DATA (96 CARDS) ---
+        const flashcardData = [
+            { q: "İnsanlar arasında anlaşmayı sağlayan en temel iletişim aracının en yalın tanımı nedir?", a: "Dil.", desc: "Dil, toplumsal bir sözleşmedir; insanların duygu, düşünce ve isteklerini ortak sembollerle aktardığı canlı bir sistemdir." },
+            { q: "Dilin, kendi iç kuralları ve mantığıyla işlemesi hangi özelliğini ifade eder?", a: "Dile 'kendisine özgü kanunları olan' bir sistem denir.", desc: "Dil rastgele kelimeler yığını değil, gramer ve söz dizimi gibi kurallarla işleyen bütüncül bir yapıdır." },
+            { q: "Dilin, sabit olmayıp zamanla değişen ve gelişen bir yapıya sahip olması hangi özelliğidir?", a: "Dil, 'canlı bir varlık' olarak nitelendirilir.", desc: "Kelimeler ölür, yeni kavramlar doğar; dil tıpkı bir canlı gibi sosyal çevreye uyum sağlar ve evrilir." },
+            { q: "Bir kişinin bebekken annesinden, babasından ve yakın çevresinden öğrendiği dile ne ad verilir?", a: "Ana dili.", desc: "Kişinin zihinsel gelişiminin temelini oluşturan, bilinçaltına ilk yerleşen temel iletişim katmanıdır." },
+            { q: "Bir devletin resmî işlerinde, kurumlarında ve eğitim sisteminde kullandığı dilin adı nedir?", a: "Resmî dil.", desc: "Hukuki metinlerde ve devlet yazışmalarında birliği sağlamak amacıyla yasalarla belirlenmiş dildir." },
+            { q: "Günlük hayatta kullanılan, kurallara sıkı sıkıya bağlı olmayan doğal ifade biçimi hangisidir?", a: "Konuşma dili.", desc: "Yazı diline göre daha esnek, ses olaylarının sık yaşandığı ve bölgeye göre değişebilen doğal iletişimdir." },
+            { q: "Genellikle belirli grupların kendi aralarında kullandığı, herkes tarafından anlaşılmayan özel konuşma biçimine ne denir?", a: "Argo.", desc: "Toplumun genelinden ayrışan kapalı grupların, standart dili bozarak oluşturduğu ironik ve özel söz dağarcığıdır." },
+            { q: "Argo dilde 'para' anlamına gelen iki örnek kelime nedir?", a: "'Mangır' ve 'papel'.", desc: "Bu kelimeler günlük hayatta kaba veya samimi bir tonlama kazandırmak için standart 'para' kelimesi yerine tercih edilir." },
+            { q: "Bir ana dilin çok eski dönemlerinde ayrılmış ve aralarında büyük ses, yapı ve kelime farklılıkları bulunan kollarına ne ad verilir?", a: "Lehçe.", desc: "Lehçeler, metinlerle takip edilemeyen çok eski zamanlarda ayrıldığı için birbirini anlamak oldukça güçtür." },
+            { q: "Türk dilinin tarihî lehçelerinden ikisini sayınız.", a: "Çuvaşça ve Yakutça.", desc: "Bu iki kol, Türkiye Türkçesi ile en büyük farklılığı gösteren ve en eski dönemlerde kopan Türk dili dallarıdır." },
+            { q: "Bir dilin tarihî süreç içinde ayrılmış, ancak karşılıklı anlaşılabilirliğin büyük ölçüde korunduğu kollarına ne ad verilir?", a: "Şive.", desc: "Şiveler, yazılı metinlerle takip edilebilen dönemlerde ayrılmıştır; ses ve kelime farkları olsa da iletişim kurulabilir." },
+            { q: "Türkiye Türkçesi, Azerbaycan Türkçesi ve Özbek Türkçesi, Türk dilinin hangi kollarına örnektir?", a: "Şive.", desc: "Bu topluluklar arasında temel kelimeler ortaktır ancak telaffuz ve bazı ek yapıları bölgesel özellik gösterir." },
+            { q: "Türkçe, köken bakımından hangi dil ailesinin hangi koluna bağlıdır?", a: "Ural-Altay dil ailesinin Altay koluna.", desc: "Moğolca, Mançuca ve Tunguzca gibi dillerle yapısal benzerlikler gösteren bu aile, Türkçenin kökenini oluşturur." },
+            { q: "Türk yazı dilinin bilinen başlangıcı hangi yüzyıla ve hangi eserlere dayanmaktadır?", a: "7. ve 8. yüzyıllardaki Orhun Yazıtları'na.", desc: "Bu yazıtlar, Türkçenin gelişmiş bir edebiyat ve devlet dili olduğunu kanıtlayan ilk büyük yazılı belgelerdir." },
+            { q: "Türkçenin yazıyla takip edilemeyen dönemlerine ne ad verilir?", a: "Karanlık devir.", desc: "Elimizde yazılı metin bulunmayan, dilin teorik olarak var olduğu kabul edilen tarih öncesi süreçtir." },
+            { q: "Türk dilinin karanlıktan aydınlığa çıkış sürecini oluşturan üç ana dönem hangileridir?", a: "İlk Türkçe, Ana Türkçe ve Eski Türkçe.", desc: "Dilin yapısal olarak bugünkü formuna yaklaşmaya başladığı evrimsel basamaklardır." },
+            { q: "Eski Türkçe dönemi hangi metinleri kapsar?", a: "Göktürk, Uygur ve Karahanlı metinlerini.", desc: "Bu dönem, Türkçenin kendi öz alfabesiyle (Köktürk) ve sonrasında Uygur alfabesiyle geliştiği altın çağdır." },
+            { q: "Orhun alfabesini 1893'te deşifre ederek Türkoloji çalışmalarına yeni bir boyut kazandıran bilim insanı kimdir?", a: "Wilhelm Thomsen.", desc: "Danimarkalı dil bilimci Thomsen, yazıtların Türkçe olduğunu keşfederek dünya tarihini değiştirmiştir." },
+            { q: "Karahanlı Türkçesi döneminde yazılmış ve Türk dili tarihi açısından en önemli iki eser hangileridir?", a: "Divan-ı Lugat’it Türk ve Kutadgu Bilig.", desc: "Biri dilin söz varlığını korumak, diğeri devlet yönetimi ve ahlak felsefesi sunmak amacıyla yazılmıştır." },
+            { q: "Arapçadan alıntı olan 'tarife' sözcüğü, Rusçaya hangi anlamla ve hangi dilden geçmiştir?", a: "Türkçeden, 'ücretlendirme' anlamıyla geçmiştir.", desc: "Bu, Türkçenin sadece kelime alan değil, aynı zamanda kelime ihraç eden aracı bir dil olduğunu gösterir." },
+            { q: "Prof. Dr. Günay Karaağaç'ın Türkçeden yabancı dillere geçmiş 20 binden fazla kelimeyi derlediği eseri?", a: "Verintiler Sözlüğü.", desc: "Türkçenin dünya dilleri üzerindeki etkisini bilimsel verilerle ortaya koyan devasa bir çalışmadır." },
+            { q: "Atatürk'ün 'Türk dili dillerin en zenginlerindendir; yeter ki bu dil _____ işlensin' sözündeki boşluk?", a: "Şuurla.", desc: "Atatürk burada dilin geliştirilmesinin bilimsel ve bilinçli bir çalışmayla mümkün olduğunu vurgulamaktadır." },
+            { q: "Bir ülke içinde aynı dilin farklı bölgelerde konuşulan ses ve söyleyiş özelliklerine ne denir?", a: "Ağız.", desc: "Gramer değişmez ancak telaffuz değişir. Örneğin Karadeniz veya Ege ağzı gibi." },
+            { q: "Meslek gruplarının kendi aralarında oluşturduğu teknik dile ne ad verilir?", a: "Jargon.", desc: "Tıp veya hukuk gibi alanlarda, dışarıdan kimsenin anlamayacağı ortak mesleki terimler kümesidir." },
+            { q: "Dilin toplum içindeki ortak kullanımına ve eğitimli kesimin konuşmasına dayanan yapı?", a: "Standart (Ölçünlü) Dil.", desc: "Resmiyet, eğitim ve yayıncılıkta kullanılan, kuralları herkesçe kabul edilmiş ortak dildir." },
+            { q: "Türkçe yapı bakımından hangi dil grubuna girer?", a: "Eklemeli (Bitişken) diller.", desc: "Kelime kökleri değişmez, anlam ve görev değişiklikleri köke eklenen eklerle sağlanır (Göz-lük-çü gibi)." },
+            { q: "Dünyada en çok konuşulan diller arasında Türkçe kaçıncı sıralardadır?", a: "İlk 10 dil arasındadır.", desc: "Geniş coğrafyası ve yaklaşık 250-300 milyonluk konuşuruyla Türkçe bir dünya dilidir." },
+            { q: "Göktürk Yazıtları (Orhun Abideleri) kimler adına dikilmiştir?", a: "Kül Tigin, Bilge Kağan ve Vezir Tonyukuk.", desc: "Devletin kuruluşunu, savaşları ve gelecek kuşaklara verilen öğütleri içeren anıtsal belgelerdir." },
+            { q: "Kaşgarlı Mahmud'un yazdığı Türkçenin ilk sözlüğü hangisidir?", a: "Divan-ı Lugat'it Türk.", desc: "Sadece bir sözlük değil, aynı zamanda dönemin kültürünü ve coğrafyasını anlatan bir ansiklopedidir." },
+            { q: "Yusuf Has Hacib tarafından yazılan siyasetname özelliğindeki ilk eser?", a: "Kutadgu Bilig.", desc: "Adalet, Mutluluk, Akıl ve Akıbeti temsil eden sembolik karakterler üzerinden devlet yönetimi anlatılır." },
+            { q: "1911'de Genç Kalemler dergisinde başlayan hareketin adı nedir?", a: "Yeni Lisan Hareketi.", desc: "Ömer Seyfettin ve Ziya Gökalp liderliğinde Türkçenin yabancı etkilerden kurtarılıp halkın anlayacağı seviyeye çekilmesini sağlamıştır." },
+            { q: "Dilin iletişim dışındaki estetik ve sanat görevine ne ad verilir?", a: "Sanatsal (Şiirsel) İşlev.", desc: "Dilin bilgi vermekten ziyade his uyandırmak ve sanat yapmak amacıyla kullanılmasıdır." },
+            { q: "Bilgi vermek amacıyla kullanılan dil işlevine ne ad verilir?", a: "Göndergesel İşlev.", desc: "Dilin en nesnel halidir; bir haberi, bir gerçeği veya ders notunu aktarırken bu işlev kullanılır." },
+            { q: "Karşımızdakini harekete geçirmek için kullanılan dil işlevi?", a: "Alıcıyı Harekete Geçirme İşlevi.", desc: "Emirler, ricalar veya propagandalar bu işleve girer; hedef karşı tarafın bir eylem yapmasıdır." },
+            { q: "Türk Dil Kurumu (TDK) hangi yıl kurulmuştur?", a: "1932.", desc: "Cumhuriyet döneminde dilin özleştirilmesi ve bilimsel olarak incelenmesi için Atatürk tarafından kurulan kurumdur." },
+            { q: "Dede Korkut Hikayeleri hangi dönemin geçiş eseridir?", a: "Destandan Halk Hikayesine geçiş.", desc: "Sözlü gelenek ile yazılı edebiyatın buluştuğu, Türk kültürünün temel taşlarından biridir." },
+            { q: "Köktürk Alfabesi kaç harften oluşur?", a: "38 harf.", desc: "Türklerin kendi ihtiyaçlarına göre oluşturduğu, taşlara kazınmaya uygun köşeli karakterlerden oluşan alfabedir." },
+            { q: "Türklerin tarih boyunca kullandığı alfabeler nelerdir?", a: "Köktürk, Uygur, Arap, Kiril ve Latin alfabeleri.", desc: "Bu değişimler Türk tarihindeki kültürel ve dini dönüşümlerin dil üzerindeki yansımalarıdır." },
+            { q: "Kutadgu Bilig ne anlama gelir?", a: "Mutluluk Veren Bilgi.", desc: "İnsana hem dünyada hem ahirette mutluluğun kapısını açacak bilgeliği konu edinir." },
+            { q: "Türkçede kaç ünlü harf vardır?", a: "8 ünlü harf.", desc: "A, E, I, İ, O, Ö, U, Ü harfleri Türkçenin müzikalliğini ve ünlü uyumlarını sağlar." },
+            { q: "Özel isimlere gelen çekim eklerini ayırmak için ne kullanılır?", a: "Kesme işareti.", desc: "Dil birliğinde netliği sağlamak ve özel ismi eklerden ayırmak için kullanılan yazım kuralıdır." },
+            { q: "Argonun tersine, daha saygın bir dille bir şeyi ifade etme?", a: "Edebî dil / Ölçünlü dil.", desc: "Estetik kaygısı güdülen veya resmiyet gerektiren durumlarda kullanılan özenli dildir." },
+            { q: "Dilin hafıza olma özelliği nedir?", a: "Geçmişin kültürünü geleceğe taşıması.", desc: "Kelimeler sadece ses değil, bir milletin binlerce yıllık tecrübesini saklayan birer sandıktır." },
+            { q: "Anadolu Selçuklularında resmi dil hangisidir?", a: "Farsça.", desc: "Bu dönemde edebiyat ve devlet işlerinde Farsça hakimiyeti olsa da halk Türkçeyi korumaya devam etmiştir." },
+            { q: "Karamanoğlu Mehmet Bey'in fermanı (1277) ne hakkındadır?", a: "Çarşıda, pazarda, divanda Türkçeden başka dil konuşulmaması.", desc: "Türkçenin resmi dildeki varlığını korumak adına tarihteki en önemli dil bilinci çıkışıdır." },
+            { q: "Tanzimat dönemi Türkçesinin en belirgin özelliği?", a: "Dili sadeleştirme çabalarının başlaması.", desc: "Gazeteciliğin gelişiyle halka ulaşma ihtiyacı doğmuş, dildeki ağır süslü yapı kırılmaya başlanmıştır." },
+            // Kartları 96'ya tamamlayan ek veriler:
+            { q: "Türkçenin en eski yazılı kaynakları arasında sayılan Yenisey Yazıtları hangi yüzyıla aittir?", a: "5. ve 6. yüzyıllar (tahmini).", desc: "Orhun yazıtlarından daha eski olduğu düşünülse de dilleri daha sadedir ve mezar taşı niteliğindedir." },
+            { q: "Divan-ı Hikmet'in yazarı ve Türk tasavvuf edebiyatının öncüsü kimdir?", a: "Ahmet Yesevi.", desc: "Orta Asya'da İslamiyet'in yayılmasında Türkçeyi kullanarak büyük rol oynamıştır." },
+            { q: "Atabetü'l Hakayık'ın anlamı nedir?", a: "Hakikatlerin Eşiği.", desc: "Edip Ahmet Yükneki tarafından ahlak ve din öğütleri vermek amacıyla yazılmış bir eserdir." },
+            { q: "Modern Türkçede İstanbul ağzının temel alınmasının sebebi nedir?", a: "Kültür, sanat ve yönetimin merkezi olması.", desc: "Bir dilin standart formunun oluşmasında o dilin konuşulduğu en önemli merkez esas alınır." },
+            { q: "Türkçenin sondan eklemeli olması ne sağlar?", a: "Çok zengin bir türetme yeteneği.", desc: "Bir kelime kökünden onlarca farklı anlam ve görevde kelime üretilebilir." },
+            { q: "Ural-Altay dil ailesinin Ural kolunda hangi diller bulunur?", a: "Fince, Macarca, Estonca.", desc: "Türkçe ile yapısal benzerlikleri (eklemeli olmaları) bu aileye dahil edilmelerini sağlamıştır." },
+            { q: "Bükümlü dillerde kelime türetimi nasıl olur?", a: "Kelime kökü değişime uğrar (içten bükülme).", desc: "Arapça (ketebe-katip-kitap) ve Hint-Avrupa dilleri buna örnektir." },
+            { q: "Türkçede 'Büyük Ünlü Uyumu'nun diğer adı nedir?", a: "Kalınlık-İncelik Uyumu.", desc: "Kelimenin ilk ünlüsü kalınsa sonrakilerin de kalın, inceyse ince olması kuralıdır." },
+            { q: "Türkçede 'Küçük Ünlü Uyumu' neyi kontrol eder?", a: "Düzlük-Yuvarlaklık Uyumu.", desc: "Ünlülerin dudak ve ağız yapısına göre birbirini takip etme düzenidir." },
+            { q: "Uygur metinlerinde sıklıkla rastlanan 'Irk Bitig' ne tür bir eserdir?", a: "Fal kitabı.", desc: "Köktürk harfleriyle yazılmış olmasına rağmen Uygur dönemine ait dini-kültürel bir belgedir." },
+            { q: "Osmanlı Türkçesinin sona erip Yeni Lisan'ın başlamasındaki en büyük etken nedir?", a: "Milliyetçilik akımı ve halka inme arzusu.", desc: "Aydınların kullandığı ağır dilin halk tarafından anlaşılmaması sadeleşmeyi zorunlu kılmıştır." },
+            { q: "Muhakemetü'l Lügateyn'de Ali Şir Nevai neyi savunmuştur?", a: "Türkçenin Farsçadan üstün veya ona denk olduğunu.", desc: "Türkçenin edebi ve sanatsal gücünü kanıtlamak için yazılmış bir eserdir." },
+            { q: "Türkçede yapım ekleri ne işe yarar?", a: "Kelimeden yeni bir kelime türetmeye.", desc: "Göz'den Gözlük yapmak gibi, anlamı ve türü değiştiren eklerdir." },
+            { q: "Çekim ekleri kelimenin anlamını değiştirir mi?", a: "Hayır, sadece görevini belirtir.", desc: "Kelimenin cümlede durumunu, zamanını veya kişisini belirler (Göz-ler gibi)." },
+            { q: "Hangi yüzyılda Karahanlı Türkçesi dönemi yaşanmıştır?", a: "11. ve 12. yüzyıllar.", desc: "İslamiyet sonrası Türk edebiyatının ilk büyük eserlerinin verildiği dönemdir." },
+            { q: "Batı Türkçesi hangi ana kollar ayrılır?", a: "Eski Anadolu, Osmanlı ve Türkiye Türkçesi.", desc: "Anadolu'ya gelen Türklerin tarih boyunca kullandıkları yazı dili evreleridir." },
+            { q: "Dede Korkut Hikayeleri'nin dili hangi dönemin özelliklerini taşır?", a: "Eski Anadolu Türkçesi.", desc: "Oğuz Türkçesinin destansı ve halk dili özelliklerini yansıtır." },
+            { q: "Türkçede vurgu genellikle kelimenin neresindedir?", a: "Sonda.", desc: "Genellikle son hecede olsa da yer adlarında ve bazı eklerde başa veya ortaya kayabilir." },
+            { q: "Dilin kanalı kontrol işlevi nedir?", a: "İletişimin sürüp sürmediğini denetleme.", desc: "'Beni duyuyor musun?', 'Anladınız mı?' gibi ifadeler bu işleve örnektir." },
+            { q: "Dilin heyecan bildirme işlevi nedir?", a: "Kişinin o anki duygularını dışa vurması.", desc: "'Eyvah!', 'Çok güzel!' gibi duygu yoğunluğu olan ifadelerdir." },
+            { q: "Dil ötesi işlev nedir?", a: "Dil hakkında bilgi vermek için dilin kullanılması.", desc: "Gramer kurallarını anlatırken kullanılan her türlü ifade dil ötesidir." },
+            { q: "Türk yazı dilleri arasında 'Kuzey-Doğu Türkçesi' hangi bölgeleri kapsar?", a: "Harezm, Kıpçak ve Çağatay alanlarını.", desc: "Orta Asya ve çevresinde gelişen Türkçenin tarihsel kollarıdır." },
+            { q: "Türkçenin 'en zengin' lehçesi sayılan ve çok büyük farklılıklar içeren dalı hangisidir?", a: "Yakutça.", desc: "Gerek ses gerekse kelime yapısı bakımından merkezden en çok uzaklaşmış Türk dilidir." },
+            { q: "Kamusu't Türki'nin önemi nedir?", a: "Adında 'Türk' kelimesi geçen ilk sözlük olması.", desc: "Şemseddin Sami'nin hazırladığı bu sözlük, milli bilincin dildeki yansımasıdır." },
+            { q: "Türkçe kelimelerin başında hangi harfler genellikle bulunmaz?", a: "l, r, n, z, c, ğ gibi harfler.", desc: "Bu harflerle başlayan kelimeler genellikle yabancı kökenlidir (Lamba, Rapor gibi)." },
+            { q: "Türkçede iki ünlü yan yana gelir mi?", a: "Hayır, gelmez.", desc: "Kendi öz kelimelerimizde iki ünlü yan yana bulunmaz (Saat, Şiir gibi kelimeler alıntıdır)." },
+            { q: "Ünsüz yumuşamasına aykırı olan kelimeler nelerdir?", a: "Tek heceli bazı kelimeler ve alıntı kelimeler.", desc: "'Süt-sütü', 'Hukuk-hukuku' gibi örneklerde yumuşama olmaz." },
+            { q: "Özel adlara getirilen iyelik ve durum ekleri nasıl ayrılır?", a: "Kesme işareti ile.", desc: "Ankara'da, Ahmet'in gibi kullanımlar standarttır." },
+            { q: "Yabancı dillerden Türkçeye kelime geçişi dilde bozulma mıdır?", a: "Aşırıya kaçmadıkça doğal bir etkileşimdir.", desc: "Diller birbirlerinden kelime alıp verirler; önemli olan dilin yapısını korumaktır." },
+            { q: "Türkçe kelimelerin sonunda hangi ünsüzler bulunabilir?", a: "l, r, n, s, ş, z, y gibi harfler.", desc: "b, c, d, g harfleri öz Türkçe kelimelerin sonunda bulunmaz, p, ç, t, k olur." },
+            { q: "Dil bilgisi (Gramer) kaça ayrılır?", a: "Ses, Şekil, Söz Dizimi, Anlam Bilgisi.", desc: "Dilin yapı taşlarını en küçük birimden en büyüğe inceleyen bilim dallarıdır." },
+            { q: "Fonetik neyi inceler?", a: "Ses bilgisini.", desc: "Dildeki seslerin özelliklerini ve birbirleriyle olan uyumlarını araştırır." },
+            { q: "Morfoloji neyi inceler?", a: "Şekil (Yapı) bilgisini.", desc: "Kelimelerin köklerini, eklerini ve nasıl türetildiklerini inceler." },
+            { q: "Sentaks neyi inceler?", a: "Söz dizimini.", desc: "Kelimelerin cümle içindeki dizilişlerini ve öge ilişkilerini inceler." },
+            { q: "Anlam Bilgisi (Semantik) neyi inceler?", a: "Kelime ve cümledeki anlamları.", desc: "Kelimenin zaman içindeki anlam kaymalarını ve zenginliklerini konu alır." },
+            { q: "Hangi dönemde matbaa Türk edebiyatına ve diline girmiştir?", a: "Lale Devri (1727).", desc: "İbrahim Müteferrika tarafından kurulan matbaa ile yazı dilinin standartlaşması hızlanmıştır." },
+            { q: "Servet-i Fünun döneminin dil anlayışı nasıldır?", a: "Oldukça ağır ve süslü.", desc: "Halktan kopuk, sadece elit bir tabakanın anlayabileceği Arapça-Farsça tamlamalarla dolu bir dildir." },
+            { q: "Milli Edebiyat akımının en büyük başarısı nedir?", a: "Konuşma dili ile yazı dili arasındaki farkı yok etmesi.", desc: "İstanbul Türkçesini ortak yazı dili haline getirmişlerdir." },
+            { q: "Atatürk'ün Güneş Dil Teorisi'nin amacı neydi?", a: "Türkçenin tüm dillerin kaynağı olduğunu kanıtlayarak özgüven aşılamak.", desc: "Bilimsel geçerliliği tartışılsa da dildeki yabancılaşmaya karşı psikolojik bir kalkandır." },
+            { q: "Türkçede 'ünlem' kelimesinin kökü nedir?", a: "Ün (Ses).", desc: "Ünlemek, yani seslenmek fiilinden türemiştir." },
+            { q: "Dilin sanatsal (şiirsel) işlevinde öncelik nedir?", a: "Estetik ve çağrışım.", desc: "Bilgi vermekten ziyade okuyucuda uyandırılan duygusal etki önemlidir." },
+            { q: "Lehçelerin birbirini anlaması neden zordur?", a: "Ayrılık çok eski olduğu için ses ve yapı farkı derindir.", desc: "Yakut Türkçesi ile Türkiye Türkçesi arasındaki fark buna en iyi örnektir." },
+            { q: "İletişim öğeleri nelerdir?", a: "Gönderici, Alıcı, İleti, Kanal, Bağlam, Dönüt.", desc: "Sağlıklı bir iletişimin gerçekleşmesi için bu 6 temel öğenin bulunması gerekir." },
+            { q: "İletişimde 'Bağlam' ne demektir?", a: "İletişimin gerçekleştiği ortam.", desc: "Aynı cümle farklı ortamlarda farklı anlamlar kazanabilir." },
+            { q: "İletişimde 'Dönüt' (Geri Bildirim) neyi sağlar?", a: "Mesajın ulaşıp ulaşmadığını kontrol etmeyi.", desc: "Alıcının göndericiye verdiği her türlü yanıttır." },
+            { q: "Gösterge nedir?", a: "Kendi dışındaki bir şeyi temsil eden her şey.", desc: "Trafik levhaları, kelimeler, jest ve mimikler birer göstergedir." },
+            { q: "Kelimeler ne tür göstergelerdir?", a: "Dil göstergeleri.", desc: "Zihindeki kavram ile ses birleşiminden oluşan yapay göstergelerdir." },
+            { q: "Dilin 'kültür taşıyıcılığı' özelliği nedir?", a: "Gelenek ve göreneklerin dille aktarılması.", desc: "Dil ölürse o milletin binlerce yıllık kültürü de yok olur." },
+            { q: "Yeni Lisan makalesi nerede yayınlanmıştır?", a: "Genç Kalemler dergisi.", desc: "Ömer Seyfettin tarafından imzasız olarak yayınlanan bu yazı, sade Türkçenin manifestosudur." },
+            { q: "Türkçe kelimelerde 'ö' ve 'ü' sesleri genellikle nerede bulunur?", a: "İlk hecede.", desc: "Türkçenin asli kelimelerinde yuvarlak ünlüler genellikle kelime başında tercih edilir." }
+        ];
+
+        // --- STATE MANAGEMENT ---
+        let currentTab = 'flashcards';
+        let cardIndex = 0;
+        let isFlipped = false;
+        let quizState = {
+            questions: [],
+            index: 0,
+            score: 0,
+            selected: null,
+            feedback: false,
+            finished: false
+        };
+
+        // --- CORE FUNCTIONS ---
+        function switchTab(tab) {
+            currentTab = tab;
+            // Update UI buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-blue-600', 'shadow-sm');
+                btn.classList.add('text-slate-500');
+            });
+            document.getElementById('tab-' + tab).classList.add('bg-white', 'text-blue-600', 'shadow-sm');
+            document.getElementById('tab-' + tab).classList.remove('text-slate-500');
+
+            render();
+        }
+
+        function render() {
+            const container = document.getElementById('main-content');
+            container.innerHTML = '';
+
+            if (currentTab === 'flashcards') {
+                renderFlashcards(container);
+            } else if (currentTab === 'video') {
+                renderVideo(container);
+            } else if (currentTab === 'quiz') {
+                renderQuiz(container);
+            }
+        }
+
+        // --- FLASHCARDS RENDERING ---
+        function renderFlashcards(container) {
+            const card = flashcardData[cardIndex];
+            container.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="w-full text-center mb-6">
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider">Öğrenme Modu</span>
+                        <h2 class="text-xl md:text-2xl font-bold mt-2">Bütün Kartlar</h2>
+                        <p class="text-slate-500 text-sm mt-1">${cardIndex + 1} / ${flashcardData.length}</p>
+                    </div>
+
+                    <div class="relative w-full max-w-lg aspect-[4/3] md:aspect-[16/10] cursor-pointer perspective-1000" onclick="toggleFlip()">
+                        <div id="card-inner" class="card-inner relative w-full h-full transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}">
+                            <!-- Front -->
+                            <div class="absolute inset-0 bg-white rounded-2xl md:rounded-3xl shadow-lg border border-slate-200 flex flex-col items-center justify-center p-6 md:p-12 backface-hidden text-center">
+                                <span class="text-slate-400 text-[10px] md:text-xs font-semibold mb-4 uppercase tracking-widest">Soru</span>
+                                <p class="text-base md:text-xl font-medium text-slate-800 leading-relaxed">${card.q}</p>
+                                <div class="mt-8 text-blue-500 text-xs font-medium animate-pulse">Cevabı Gör</div>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 bg-blue-600 rounded-2xl md:rounded-3xl shadow-lg flex flex-col items-center justify-center p-6 md:p-12 backface-hidden rotate-y-180 text-center">
+                                <span class="text-blue-200 text-[10px] md:text-xs font-semibold mb-4 uppercase tracking-widest">Cevap</span>
+                                <p class="text-lg md:text-2xl font-bold text-white mb-4">${card.a}</p>
+                                <p class="text-blue-100 text-[10px] md:text-xs leading-relaxed max-w-xs opacity-90">${card.desc}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-8 mt-8">
+                        <button onclick="prevCard()" ${cardIndex === 0 ? 'disabled' : ''} class="p-4 rounded-full bg-white shadow-md hover:bg-slate-50 disabled:opacity-30 border border-slate-100 active:scale-90 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                        </button>
+                        <button onclick="nextCard()" ${cardIndex === flashcardData.length - 1 ? 'disabled' : ''} class="p-4 rounded-full bg-white shadow-md hover:bg-slate-50 disabled:opacity-30 border border-slate-100 active:scale-90 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleFlip() {
+            isFlipped = !isFlipped;
+            const inner = document.getElementById('card-inner');
+            if (isFlipped) inner.classList.add('rotate-y-180');
+            else inner.classList.remove('rotate-y-180');
+        }
+
+        function prevCard() {
+            if (cardIndex > 0) {
+                cardIndex--;
+                isFlipped = false;
+                render();
+            }
+        }
+
+        function nextCard() {
+            if (cardIndex < flashcardData.length - 1) {
+                cardIndex++;
+                isFlipped = false;
+                render();
+            }
+        }
+
+        // --- VIDEO RENDERING ---
+        function renderVideo(container) {
+            container.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-12 text-center border border-slate-100 mx-auto max-w-2xl">
+                    <div class="w-16 h-16 md:w-20 md:h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">Görsel Destek</h2>
+                    <p class="text-slate-600 text-sm md:text-lg mb-8 max-w-md mx-auto leading-relaxed">96 karttaki bilgileri YouTube üzerinden kapsamlı ders videolarıyla pekiştirmek için butona tıklayabilirsin.</p>
+                    <a href="https://youtu.be/MtlqqpuuqMI" target="_blank" class="inline-flex w-full md:w-auto items-center justify-center gap-3 bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg active:scale-95">
+                        YouTube'da İzle
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                    </a>
+                </div>
+            `;
+        }
+
+        // --- QUIZ RENDERING ---
+        function renderQuiz(container) {
+            if (!quizState.questions.length && !quizState.finished) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center border border-slate-100 max-w-2xl mx-auto">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold mb-3 text-slate-800">Bilgi Testi</h2>
+                        <p class="text-slate-500 mb-8">96 soruluk havuzdan rastgele seçilen 30 soruyla gerçek bir sınav deneyimi yaşa.</p>
+                        <button onclick="startQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded-xl transition-all shadow-lg active:scale-95">Teste Başla</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (quizState.finished) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center border border-slate-100 max-w-2xl mx-auto">
+                        <h2 class="text-3xl font-bold mb-2">Sınav Tamamlandı!</h2>
+                        <div class="bg-blue-50 p-8 rounded-3xl inline-block my-6 border border-blue-100">
+                            <div class="text-blue-400 text-xs font-bold uppercase tracking-widest mb-1">Skorun</div>
+                            <div class="text-6xl font-black text-blue-700">${quizState.score} / 30</div>
+                        </div>
+                        <button onclick="startQuiz()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl transition-all">Yeniden Dene</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const currentQ = quizState.questions[quizState.index];
+            const progress = ((quizState.index + 1) / 30) * 100;
+
+            container.innerHTML = `
+                <div class="max-w-2xl mx-auto space-y-6">
+                    <div class="flex justify-between items-center px-1">
+                        <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden mr-4">
+                            <div class="h-full bg-blue-500 transition-all duration-300" style="width: ${progress}%"></div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-500">Soru ${quizState.index + 1} / 30</span>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8">
+                        <h3 class="text-lg md:text-xl font-bold mb-8 text-slate-800">${currentQ.question}</h3>
+                        <div class="space-y-3">
+                            ${currentQ.options.map((opt, i) => {
+                                let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
+                                if (quizState.feedback) {
+                                    if (opt === currentQ.correctAnswer) style = "bg-green-50 border-green-500 text-green-700 font-semibold ring-1 ring-green-500";
+                                    else if (opt === quizState.selected) style = "bg-red-50 border-red-500 text-red-700 font-semibold ring-1 ring-red-500";
+                                    else style = "bg-white border-slate-100 opacity-40";
+                                }
+                                return `<button onclick="handleQuizAnswer('${opt}')" ${quizState.feedback ? 'disabled' : ''} class="w-full p-4 rounded-xl border-2 text-left transition-all ${style}">${opt}</button>`;
+                            }).join('')}
+                        </div>
+
+                        ${quizState.feedback ? `
+                            <div class="mt-8 p-5 rounded-xl bg-slate-50 border border-slate-200 animate-in fade-in duration-300">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    <span class="font-bold text-sm text-slate-700">NotebookLM Analiz Paneli</span>
+                                </div>
+                                <p class="text-slate-600 text-xs md:text-sm leading-relaxed mb-6 italic">
+                                    ${quizState.selected === currentQ.correctAnswer 
+                                        ? `Doğru! Bu kavram Türkçenin temel taşlarından biridir. ${currentQ.description}` 
+                                        : `Maalesef hata yaptın. Doğru cevap "${currentQ.correctAnswer}" olmalıydı. Çünkü bu bilginin arka planı şöyledir: ${currentQ.description}`}
+                                </p>
+                                <button onclick="nextQuizQuestion()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg active:scale-95">
+                                    ${quizState.index === 29 ? 'Testi Bitir' : 'Sonraki Soru'}
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function startQuiz() {
+            const shuffled = [...flashcardData].sort(() => 0.5 - Math.random()).slice(0, 30);
+            quizState.questions = shuffled.map(item => {
+                const others = flashcardData.filter(f => f.a !== item.a);
+                const distractors = others.sort(() => 0.5 - Math.random()).slice(0, 3).map(f => f.a);
+                return {
+                    question: item.q,
+                    correctAnswer: item.a,
+                    description: item.desc,
+                    options: [item.a, ...distractors].sort(() => 0.5 - Math.random())
+                };
+            });
+            quizState.index = 0;
+            quizState.score = 0;
+            quizState.feedback = false;
+            quizState.selected = null;
+            quizState.finished = false;
+            render();
+        }
+
+        function handleQuizAnswer(opt) {
+            quizState.selected = opt;
+            quizState.feedback = true;
+            if (opt === quizState.questions[quizState.index].correctAnswer) {
+                quizState.score++;
+            }
+            render();
+        }
+
+        function nextQuizQuestion() {
+            if (quizState.index < 29) {
+                quizState.index++;
+                quizState.feedback = false;
+                quizState.selected = null;
+                render();
+            } else {
+                quizState.finished = true;
+                render();
+            }
+        }
+
+        // --- INIT ---
+        window.onload = render;
+    </script>
+</body>
+</html>
